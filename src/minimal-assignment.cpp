@@ -432,10 +432,10 @@ arma::umat hungarian(const arma::mat &input_cost)
     int cpath_0 = 0;
     int rpath_0 = 0;
     arma::mat cost(input_cost);
-    arma::umat indM(N, N);
-    arma::ivec rcov(N);
-    arma::ivec ccov(N);
-    arma::imat path(2 * N, 2);
+    arma::umat indM(N, N, arma::fill::zeros);
+    arma::ivec rcov(N, arma::fill::zeros);
+    arma::ivec ccov(N, arma::fill::zeros);
+    arma::imat path(2 * N, 2, arma::fill::zeros);
 
     indM = arma::zeros<arma::umat>(N, N);
     bool done = false;
@@ -491,7 +491,7 @@ arma::imat hungarian_cc(Rcpp::NumericMatrix cost)
 {
     // Reuse memory from R
     unsigned int N = cost.rows();
-    arma::mat arma_cost(cost.begin(), N, N, false, true);
+    arma::mat arma_cost(cost.begin(), N, N, true, true);
     // Call the C++-function 'hungarian'
     arma::umat indM = hungarian(arma_cost);
     //Convert the result to an Armadillo integer
