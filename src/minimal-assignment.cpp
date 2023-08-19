@@ -491,7 +491,7 @@ arma::imat hungarian_cc(Rcpp::NumericMatrix cost)
 {
     // Reuse memory from R
     unsigned int N = cost.rows();
-    arma::mat arma_cost(cost.begin(), N, N, true, true);
+    arma::mat arma_cost(cost.begin(), N, N, false, true);
     // Call the C++-function 'hungarian'
     arma::umat indM = hungarian(arma_cost);
     //Convert the result to an Armadillo integer
